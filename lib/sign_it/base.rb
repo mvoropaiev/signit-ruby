@@ -5,8 +5,8 @@ module SignIt # :nodoc:
     def create(access_key, secret_key, message, algorithm = 'sha256',
                prefix = AUTH_PREFIX_HEADER)
       hmac_hex_digest = create_digest(secret_key, message, algorithm)
-      SIGNATURE_FORMAT % { prefix: prefix, access_key: access_key,
-                           hmac_hex_digest: hmac_hex_digest }
+      format(SIGNATURE_FORMAT, prefix: prefix, access_key: access_key,
+                               hmac_hex_digest: hmac_hex_digest)
     end
 
     def parse(signature)
@@ -17,6 +17,7 @@ module SignIt # :nodoc:
     def valid?(hmac_hex_digest, secret_key, message, algorithm = 'sha256')
       valid_hmac_hex_digest = create_digest(secret_key, message, algorithm)
       return true if hmac_hex_digest.to_s == valid_hmac_hex_digest.to_s
+
       false
     end
 

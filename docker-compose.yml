@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  app:
+  sign_it:
     build: .
     volumes:
       - .:/usr/src/app:rw
